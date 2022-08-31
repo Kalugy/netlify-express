@@ -4,8 +4,20 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
+const jwt = require("jsonwebtoken")
+const mongoose = require("mongoose")
+const bcrypt = require('bcrypt')
 
+require('dotenv').config()
+mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology:true}).then(() => {
+  console.log("Successfully connected to MongoDB Atlas!");
+})
+.catch((error) => {
+  console.log("Unable to connect to MongoDB Atlas!");
+  console.error(error);
+});
 const router = express.Router();
+
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
