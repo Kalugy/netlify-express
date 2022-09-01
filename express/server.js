@@ -2,15 +2,15 @@
 const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
-const app = express();
 const bodyParser = require('body-parser');
 /*
 const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 */
-const router = express.Router();
+const app = express();
 
+const router = express.Router();
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
