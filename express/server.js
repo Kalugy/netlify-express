@@ -18,6 +18,23 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology
 });
 const router = express.Router();
 
+const UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: [true, "Please provide an Email!"],
+    unique: [true, "Email Exist"],
+  },
+
+  password: {
+    type: String,
+    required: [true, "Please provide a password!"],
+    unique: false,
+  } 
+
+});
+
+const User = mongoose.model("User", UserSchema);
+
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
