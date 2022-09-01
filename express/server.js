@@ -4,17 +4,18 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
+/*
 const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
-
+*/
 const router = express.Router();
 
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
-require('dotenv').config()
 /*
+require('dotenv').config()
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology:true}).then(() => {
   console.log("Successfully connected to MongoDB Atlas!");
 })
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology
   console.error(error);
 });
 */
+/*
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -37,9 +39,9 @@ const UserSchema = new mongoose.Schema({
   } 
 
 });
-
 const User = mongoose.model("User", UserSchema);
 
+*/
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
