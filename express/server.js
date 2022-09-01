@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 
+const router = express.Router();
+
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
@@ -20,7 +22,6 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology
   console.log("Unable to connect to MongoDB Atlas!");
   console.error(error);
 });
-const router = express.Router();
 
 const UserSchema = new mongoose.Schema({
   email: {
