@@ -8,7 +8,11 @@ const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 
+app.use(bodyParser.json());
+app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 require('dotenv').config()
+
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology:true}).then(() => {
   console.log("Successfully connected to MongoDB Atlas!");
 })
@@ -42,7 +46,7 @@ router.get('/', (req, res) => {
 });
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
-
+/*
 // register endpoint
 app.post("/register", (request, response) => {
   // hash the password
@@ -77,10 +81,7 @@ app.post("/register", (request, response) => {
       });
     });
 });
-
-app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
-app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+*/
 
 module.exports = app;
 module.exports.handler = serverless(app);
