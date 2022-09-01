@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 require('dotenv').config()
-
+/*
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology:true}).then(() => {
   console.log("Successfully connected to MongoDB Atlas!");
 })
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true, useUnifiedTopology
   console.log("Unable to connect to MongoDB Atlas!");
   console.error(error);
 });
-
+*/
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
   res.write('<h1>Hello from Express.js!</h1>');
   res.end();
 });
-router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
+router.get('/another', (req, res) => res.json({ route: req.originalUrl, test: process.env.MONGO_URI }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
 /*
 // register endpoint
